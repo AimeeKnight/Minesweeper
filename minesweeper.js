@@ -1,6 +1,16 @@
+var COLUMNS = Array.apply(null, Array(9)).map(function (x, i) { return i; })
+
 var Minesweeper = React.createClass({
   render: function() {
-    return <div>Minesweeper Board</div>;
+    var board = COLUMNS.map(function(square, index){
+      var row = Array.apply(null, Array(9)).map(function (x, i) { return <span>{index}</span>; })
+      return <div>{row}</div>
+    });
+    return (
+      <div>
+        <div>{board}</div>
+      </div>
+    );
   }
 });
 
