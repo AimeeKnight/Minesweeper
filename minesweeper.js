@@ -6,7 +6,7 @@ var Minesweeper = React.createClass({
   render () {
 
     var board = COLUMNS.map((square, index) => {
-      var row = Array.apply(null, Array(rowLength)).map((x, i) => { return <span>{index}</span>; });
+      var row = Array.apply(null, Array(rowLength)).map(() => { return <div className="tile">{index}</div>; });
       return <div>{row}</div>
     });
 

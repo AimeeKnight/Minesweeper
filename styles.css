@@ -1,0 +1,9 @@
+.tile {
+  border: 1px solid black;
+  margin: 2px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
