@@ -1,11 +1,15 @@
-var COLUMNS = Array.apply(null, Array(9)).map(function (x, i) { return i; })
+var columnLength = 9
+  , rowLength = 9
+  , COLUMNS = Array.apply(null, Array(columnLength)).map((x, i) => { return i; });
 
 var Minesweeper = React.createClass({
-  render: function() {
-    var board = COLUMNS.map(function(square, index){
-      var row = Array.apply(null, Array(9)).map(function (x, i) { return <span>{index}</span>; })
+  render () {
+
+    var board = COLUMNS.map((square, index) => {
+      var row = Array.apply(null, Array(rowLength)).map((x, i) => { return <span>{index}</span>; });
       return <div>{row}</div>
     });
+
     return (
       <div>
         <div>{board}</div>
