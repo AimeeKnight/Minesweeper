@@ -1,31 +1,51 @@
+function initialBoard(rows, columns) {
+  var board = {};
+  var tiles = [];
+  var tile = 1;
+
+  for (var i = 0; i < rows; i++) {
+    var row = [];
+    for (var j = 0; j < columns; j++) {
+      row.push(tile++);
+    }
+    tiles.push(row);
+  }
+
+  board.tiles = tiles;
+  return board;
+}
+
 var Minesweeper = React.createClass({
   render() {
+    var tiles = initialBoard(9,9).tiles;
     return (
       <div>
-        <Board columns={9} rows={9} />
+        <Board tiles={tiles} />
       </div>
     );
   }
 });
 
-var Tile  = React.createClass({
+var Board = React.createClass({
   render() {
-    var index = this.props.index;
-    return <div className="tile">{index}</div>
+    var board = this.props.tiles.map((row) => {
+      return row.map((tile) => {
+        return <Tile index={tile} />
+      });
+    });
+
+    return (
+      <div className="board">{board}</div>
+    );
   }
 });
 
-var Board = React.createClass({
+var Tile  = React.createClass({
+  // make isExposed state?
   render() {
-    var numberOfRows = this.props.rows
-      , numberOfColumns = this.props.columns
-      , columns = Array.apply(null, Array(numberOfColumns)).map((x, i) => { return i; })
-      , board = columns.map((square, index) => {
-            var row = Array.apply(null, Array(numberOfRows)).map(() => { return <Tile index={index} />; });
-            return <div className="row">{row}</div>
-          });
-
-    return <div className="board">{board}</div>;
+    var index = this.props.index;
+    var end = this.props.index % 9 === 0;
+    return <div className="tile" isExposed="false" isEnd={end}>{index}</div>
   }
 });
 
@@ -33,3 +53,5 @@ ReactDOM.render(
   <Minesweeper/>,
   document.getElementById('container')
 );
+
+
