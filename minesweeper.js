@@ -1,26 +1,21 @@
 function initialBoard(rows, columns) {
-  var board = {};
   var tiles = [];
-  var tile = 1;
 
-  for (var i = 0; i < rows; i++) {
-    var row = [];
-    for (var j = 0; j < columns; j++) {
-      row.push(tile++);
-    }
-    tiles.push(row);
+  for (var i = 1; i <= rows * columns; i++) {
+    tiles.push(i);
   }
 
-  board.tiles = tiles;
-  return board;
+  return {tiles};
 }
 
 var Minesweeper = React.createClass({
   render() {
-    var tiles = initialBoard(9,9).tiles;
+    const columns = 9;
+    const rows = 9;
+    var tiles = initialBoard(rows, columns).tiles;
     return (
       <div>
-        <Board tiles={tiles} />
+        <Board tiles={tiles} columns={columns} rows={rows} />
       </div>
     );
   }
@@ -28,30 +23,39 @@ var Minesweeper = React.createClass({
 
 var Board = React.createClass({
   render() {
-    var board = this.props.tiles.map((row) => {
-      return row.map((tile) => {
-        return <Tile index={tile} />
-      });
+
+    function partition(tiles, size) {
+      var results = [];
+      while (tiles.length) {
+        results.push(tiles.splice(0, size));
+      }
+      return results;
+    }
+
+    var rows = partition(this.props.tiles, this.props.columns).map(function(tiles) {
+      return <Row row={tiles} />
     });
 
     return (
-      <div className="board">{board}</div>
+      <table className="board">{rows}</table>
     );
   }
 });
 
-var Tile  = React.createClass({
-  // make isExposed state?
+var Row = React.createClass({
   render() {
-    var index = this.props.index;
-    var end = this.props.index % 9 === 0;
-    return <div className="tile" isExposed="false" isEnd={end}>{index}</div>
+    var tds = this.props.row.map((tile) => {return <Tile index={tile}/>});
+
+    return <tr className="row">{tds}</tr>
   }
 });
 
-ReactDOM.render(
-  <Minesweeper/>,
-  document.getElementById('container')
-);
+var Tile  = React.createClass({
+  render() {
+    var index = this.props.index;
 
+    return <td className="tile" isExposed="false" >{index}</td>
+  }
+});
 
+ReactDOM.render(<Minesweeper/>, document.getElementById('container'));
