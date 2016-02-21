@@ -32,19 +32,15 @@ var Board = React.createClass({
       return results;
     }
 
-    var rows = partition(this.props.tiles, this.props.columns).map(function(tiles) {
-      return <Row row={tiles} />
-    });
+    var rows = partition(this.props.tiles, this.props.columns).map((tiles) => <Row row={tiles} />);
 
-    return (
-      <table className="board">{rows}</table>
-    );
+    return <table className="board">{rows}</table>
   }
 });
 
 var Row = React.createClass({
   render() {
-    var tds = this.props.row.map((tile) => {return <Tile index={tile}/>});
+    var tds = this.props.row.map((tile) => <Tile index={tile}/>);
 
     return <tr className="row">{tds}</tr>
   }
