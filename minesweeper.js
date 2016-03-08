@@ -1,27 +1,34 @@
+class Tile {
+  constructor(id) {
+    this.id = id
+    this.isMine = Math.round(Math.random()) === 1
+  }
+}
+
 function initialBoard(rows, columns) {
   var tiles = [];
 
   for (var i = 1; i <= rows * columns; i++) {
-    tiles.push(i);
+    tiles.push(new Tile(i));
   }
 
   return {tiles};
 }
 
-var Minesweeper = React.createClass({
+var MinesweeperView = React.createClass({
   render() {
     const columns = 9;
     const rows = 9;
     var tiles = initialBoard(rows, columns).tiles;
     return (
       <div>
-        <Board tiles={tiles} columns={columns} rows={rows} />
+        <BoardView tiles={tiles} columns={columns} rows={rows} />
       </div>
     );
   }
 });
 
-var Board = React.createClass({
+var BoardView = React.createClass({
   render() {
 
     function partition(tiles, size) {
@@ -32,26 +39,34 @@ var Board = React.createClass({
       return results;
     }
 
-    var rows = partition(this.props.tiles, this.props.columns).map((tiles) => <Row row={tiles} />);
+    var rows = partition(this.props.tiles, this.props.columns).map((tiles) => <RowView row={tiles} />);
 
-    return <table className="board">{rows}</table>
+    return <table className="board"><tbody>{rows}</tbody></table>
   }
 });
 
-var Row = React.createClass({
+var RowView = React.createClass({
   render() {
-    var tds = this.props.row.map((tile) => <Tile index={tile}/>);
+    var tds = this.props.row.map((tile) => <TileView tile={tile}/>);
 
     return <tr className="row">{tds}</tr>
   }
 });
 
-var Tile  = React.createClass({
+var TileView  = React.createClass({
   render() {
-    var index = this.props.index;
+    var tile = this.props.tile;
+    var classes;
 
-    return <td className="tile" isExposed="false" >{index}</td>
+    if (tile.isMine){
+      classes = "tile isMine"
+    } else {
+      classes = "tile"
+    }
+
+    return <td className={classes} isExposed="false">{tile.id}</td>
   }
 });
 
-ReactDOM.render(<Minesweeper/>, document.getElementById('container'));
+ReactDOM.render(<MinesweeperView/>, document.getElementById('container'));
+
