@@ -1,7 +1,12 @@
 class Tile {
   constructor(id) {
     this.id = id
+    this.isExposed = false
     this.isMine = Math.round(Math.random()) === 1
+  }
+
+  markAsExposed() {
+    this.isExposed = true
   }
 }
 
@@ -54,17 +59,18 @@ var RowView = React.createClass({
 });
 
 var TileView  = React.createClass({
+
   render() {
     var tile = this.props.tile;
-    var classes;
+    var classes = 'tile';
+    classes += tile.isExposed ? " isExposed" : ""
 
     if (tile.isMine){
-      classes = "tile isMine"
-    } else {
-      classes = "tile"
+      classes += " isMine"
     }
 
-    return <td className={classes} isExposed="false">{tile.id}</td>
+    // pass id to store?
+    return <td className={classes} onClick={tile.markAsExposed()}>{tile.id}</td>
   }
 });
 

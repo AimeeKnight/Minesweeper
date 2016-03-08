@@ -8,6 +8,10 @@
   line-height: 40px;
 }
 
-.isMine {
+.isMine.isExposed {
   background-color: red;
+}
+
+.isExposed {
+  background-color: green;
 }
