@@ -1,16 +1,27 @@
 {
-  "name": "minesweeper",
-  "version": "0.0.0",
-  "description": "minesweeper",
-  "main": "index.js",
-  "dependencies": {
-    "connect": "^3.4.0",
-    "serve-static": "^1.10.1"
-  },
-  "devDependencies": {},
+  "name": "Minesweeper",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node_modules/.bin/webpack-dev-server --progess --colors --content-base app --port 8080"
   },
-  "author": "",
-  "license": "MIT"
+  "dependencies": {
+    "easy-cursors": "^0.3.1",
+    "react": "^0.x.x",
+    "react-dom": "^0.x.x"
+  },
+  "devDependencies": {
+    "babel-core": "6.x.x",
+    "babel-loader": "6.x.x",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "webpack": "^1.x.x",
+    "webpack-dev-server": "^1.x.x"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ]
+  }
 }
