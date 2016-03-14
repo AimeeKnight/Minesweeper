@@ -17,7 +17,7 @@ const MinesweeperView = React.createClass({
     const rows = 9;
     const columns = 9;
     let tiles = this.initialBoard(rows, columns).tiles;
-    return({ tiles: tiles, rows: rows, columns: columns });
+    return({ tiles, rows, columns });
   },
 
   initialBoard(rows, columns) {
@@ -50,8 +50,7 @@ const BoardView = React.createClass({
   },
 
   render() {
-    const tiles = this.props.tiles
-    const columns = this.props.columns
+    const {tiles, columns} = this.props
     let rows = this.partition(tiles, columns).map((tiles) => <RowView rows={tiles} />);
     return(
       <table className="board">
@@ -73,13 +72,13 @@ const RowView = React.createClass({
 
 const TileView  = React.createClass({
   handleClick() {
-    this.props.tile.isExposed = true
+    this.props.tile.markAsExposed()
     this.setState({})
   },
 
   render() {
-    let tile = this.props.tile;
-    let classes = 'tile';
+    let {tile} = this.props
+    let classes = 'tile'
     classes += tile.isExposed ? " isExposed" : ""
 
     if (tile.isMine){
