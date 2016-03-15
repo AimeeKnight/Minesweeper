@@ -6,7 +6,8 @@
   "dependencies": {
     "easy-cursors": "^0.3.1",
     "react": "^0.x.x",
-    "react-dom": "^0.x.x"
+    "react-dom": "^0.x.x",
+    "redux": "^3.3.1"
   },
   "devDependencies": {
     "babel-core": "6.x.x",
