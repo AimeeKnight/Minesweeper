@@ -12,7 +12,7 @@ export default React.createClass({
 
     return (
       <td className={classes}
-          onClick={handleClick(tile)}>
+          onClick={handleClick.bind(this, tile)}>
         {tile.id}
       </td>
     )

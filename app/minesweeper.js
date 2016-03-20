@@ -1,52 +1,52 @@
 import React from 'react'
-import { createStore, combineReducers } from 'redux'
-import initialBoard from './helpers'
+var ReactDOM = require('react-dom');
+import {createStore} from 'redux'
+import {initialBoard, partition} from './helpers'
 import BoardView from './board-view.jsx'
+import TileView from './tile-view.jsx'
 
-const board = (state = initialBoard(9, 9), action) => {
+let defaultState = initialBoard(9, 9)
+
+const board = (state = defaultState, action) => {
   switch (action.type) {
-    case 'click':
+    case 'CLICK':
       return state
     default:
       return state
   }
 }
 
-const minesweeperApp = combineReducers({board});
-const store = createStore(minesweeperApp)
-const dispatch = (action) => {store.dispatch(action)}
-
-const MinesweeperView = ({board}) => {
-  const handleClick = (tile) => {
-    return () => {
-      tile.markAsExposed()
-      dispatch({type: 'click'})
-    }
-  }
-
+const MinesweeperView = ({tiles, rows, handleClick}) => {
   return (
     <div>
-      <BoardView
-        tiles={board.tiles}
-        columns={board.columns}
-        rows={board.rows}
-        handleClick={handleClick}
-      />
+      <div>
+        <BoardView
+          tiles={tiles}
+          rows={rows}
+          handleClick={handleClick}
+        />
+      </div>
     </div>
   )
 }
 
+const store = createStore(board);
+
 const render = () => {
-  React.render(
+  ReactDOM.render(
     <MinesweeperView
-      {...store.getState()}
-      dispatch={dispatch}
+      tiles={store.getState().tiles}
+      rows={store.getState().rows}
+      handleClick={(tile) => {
+        tile.markAsExposed()
+        store.dispatch({type: 'CLICK'})
+        }}
     />,
     document.getElementById('app')
   )
 }
 
-render();
 store.subscribe(render)
+render()
 
 export default MinesweeperView
