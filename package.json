@@ -4,7 +4,6 @@
     "start": "node_modules/.bin/webpack-dev-server --progess --colors --content-base app --port 8080"
   },
   "dependencies": {
-    "easy-cursors": "^0.3.1",
     "react": "^0.x.x",
     "react-dom": "^0.x.x",
     "redux": "^3.3.1"
