@@ -1,15 +1,15 @@
 import React from 'react'
 var ReactDOM = require('react-dom');
 import {createStore} from 'redux'
-import {initialBoard, partition} from './helpers'
+import initialBoard from './helpers'
 import BoardView from './board-view.jsx'
-import TileView from './tile-view.jsx'
 
-let defaultState = initialBoard(9, 9)
+const DEFAULTSTATE = initialBoard(9, 9)
 
-const board = (state = defaultState, action) => {
+const board = (state = DEFAULTSTATE, action) => {
   switch (action.type) {
     case 'CLICK':
+      action.tile.markAsExposed()
       return state
     default:
       return state
@@ -19,13 +19,11 @@ const board = (state = defaultState, action) => {
 const MinesweeperView = ({tiles, rows, handleClick}) => {
   return (
     <div>
-      <div>
-        <BoardView
-          tiles={tiles}
-          rows={rows}
-          handleClick={handleClick}
-        />
-      </div>
+      <BoardView
+        tiles={tiles}
+        rows={rows}
+        handleClick={handleClick}
+      />
     </div>
   )
 }
@@ -37,10 +35,7 @@ const render = () => {
     <MinesweeperView
       tiles={store.getState().tiles}
       rows={store.getState().rows}
-      handleClick={(tile) => {
-        tile.markAsExposed()
-        store.dispatch({type: 'CLICK'})
-        }}
+      handleClick={(tile) => store.dispatch({type: 'CLICK', tile})}
     />,
     document.getElementById('app')
   )
