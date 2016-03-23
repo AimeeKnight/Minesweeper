@@ -4,8 +4,8 @@ import {partition} from './helpers'
 
 export default React.createClass({
   render() {
-    const {tiles, handleClick} = this.props
-    let rows = tiles.map((tile) => <RowView rows={tile} handleClick={handleClick}/>)
+    const {tiles} = this.props
+    let rows = tiles.map((tile) => <RowView rows={tile} />)
     return(
       <table className="board">
         <tbody>{rows}</tbody>

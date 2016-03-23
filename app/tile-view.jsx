@@ -1,8 +1,9 @@
 import React from 'react'
+import store from './store'
 
 export default React.createClass({
   render() {
-    let {tile, handleClick} = this.props
+    let {tile} = this.props
     let classes = 'tile'
     classes += tile.isExposed ? " isExposed" : ""
 
@@ -10,9 +11,13 @@ export default React.createClass({
       classes += " isMine"
     }
 
+    const clickHandler = () => {
+      store.dispatch({type: 'CLICK', tile})
+    }
+
     return (
       <td className={classes}
-          onClick={handleClick.bind(this, tile)}>
+          onClick={clickHandler}>
         {tile.id}
       </td>
     )
