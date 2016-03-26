@@ -7,10 +7,8 @@ const DEFAULTSTATE = initialBoard(9, 9)
 const board = (state = DEFAULTSTATE, action) => {
   switch (action.type) {
     case 'CLICK':
-      let newTile = new Tile(tile.id)
-      newTile.markAsExposed()
-      //TODO insert new tile into existing slot
-      return state
+      let tiles = updateTile(state.tiles, action.tile.id)
+      return {...state, tiles}
     default:
       return state
   }
@@ -19,3 +17,18 @@ const board = (state = DEFAULTSTATE, action) => {
 const store = createStore(board);
 
 export default store
+
+function updateTile(tileRows, newTileId) {
+  return tileRows.map((tileRow) => {
+    return tileRow.map((tile) => {
+      if (tile.id == newTileId) {
+        let newTile = new Tile(newTileId)
+        newTile.markAsExposed()
+        return newTile
+      }
+      else {
+        return tile
+      }
+    })
+  })
+}
