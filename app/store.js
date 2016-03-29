@@ -1,13 +1,18 @@
 import {createStore} from 'redux'
-import initialBoard from './helpers'
 import Tile from './tile'
+import Game from './game'
 
-const DEFAULTSTATE = initialBoard(9, 9)
+const DEFAULTSTATE = new Game(9, 9)
 
 const board = (state = DEFAULTSTATE, action) => {
   switch (action.type) {
     case 'CLICK':
-      let tiles = updateTile(state.tiles, action.tile.id)
+      // determine if mine we clicked is a mine
+      // if yes
+      // mark game as lost
+      // else
+      // update the tile
+      let tiles = markAsExposed(state.tiles, action.tile.id)
       return {...state, tiles}
     default:
       return state
@@ -18,7 +23,7 @@ const store = createStore(board);
 
 export default store
 
-function updateTile(tileRows, newTileId) {
+function markAsExposed(tileRows, newTileId) {
   return tileRows.map((tileRow) => {
     return tileRow.map((tile) => {
       if (tile.id == newTileId) {

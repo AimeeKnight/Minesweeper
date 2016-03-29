@@ -1,6 +1,5 @@
 import React from 'react'
 import RowView from './row-view.jsx'
-import {partition} from './helpers'
 
 export default React.createClass({
   render() {
