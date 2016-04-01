@@ -7,13 +7,9 @@ const DEFAULTSTATE = new Game(9, 9)
 const board = (state = DEFAULTSTATE, action) => {
   switch (action.type) {
     case 'CLICK':
-      // determine if mine we clicked is a mine
-      // if yes
-      // mark game as lost
-      // else
-      // update the tile
+      let isLost = action.tile.isMine
       let tiles = markAsExposed(state.tiles, action.tile.id)
-      return {...state, tiles}
+      return {...state, tiles, isLost}
     default:
       return state
   }
@@ -29,6 +25,7 @@ function markAsExposed(tileRows, newTileId) {
       if (tile.id == newTileId) {
         let newTile = new Tile(newTileId)
         newTile.markAsExposed()
+        newTile.isMine = tile.isMine
         return newTile
       }
       else {
