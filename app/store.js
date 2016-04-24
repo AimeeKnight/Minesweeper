@@ -1,5 +1,5 @@
 import {createStore} from 'redux'
-import Tile from './tile'
+import Tile from './models/tile'
 import Game from './game'
 
 const DEFAULTSTATE = new Game(9, 9)

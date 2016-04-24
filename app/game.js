@@ -1,4 +1,4 @@
-import Tile from './tile'
+import Tile from './models/tile'
 
 export default class Game {
   constructor(rows, columns) {
