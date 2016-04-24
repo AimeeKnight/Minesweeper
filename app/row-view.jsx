@@ -8,4 +8,8 @@ const RowView = ({ rows }) => {
   )
 }
 
+RowView.propTypes = {
+  rows: React.PropTypes.array.isRequired
+}
+
 export default RowView

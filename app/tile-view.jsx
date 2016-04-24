@@ -21,4 +21,8 @@ const TileView = ({ tile }) => {
   )
 }
 
+TileView.propTypes = {
+  tile: React.PropTypes.object.isRequired
+}
+
 export default TileView

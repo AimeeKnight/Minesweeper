@@ -10,4 +10,8 @@ const BoardView = ({ tiles }) => {
   )
 }
 
+BoardView.propTypes = {
+  tiles: React.PropTypes.array.isRequired
+}
+
 export default BoardView
