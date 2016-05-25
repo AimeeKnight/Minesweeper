@@ -26,6 +26,7 @@ function markAsExposed(tileRows, newTileId) {
         let newTile = new Tile(newTileId)
         newTile.markAsExposed()
         newTile.isMine = tile.isMine
+        newTile.surroundingMines = tile.surroundingMines
         return newTile
       }
       else {

@@ -16,7 +16,7 @@ const TileView = ({ tile }) => {
   return (
     <td className={classes}
         onClick={clickHandler}>
-      {tile.id}
+      {!tile.isMine && tile.isExposed && tile.surroundingMines}
     </td>
   )
 }

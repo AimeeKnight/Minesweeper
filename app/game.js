@@ -22,6 +22,25 @@ function initialBoard(rows, columns) {
     tiles.push(new Tile(i))
   }
   tiles = partition(tiles, rows)
+  tiles = markSurroundingTiles(tiles)
 
+  return tiles
+}
+
+function markSurroundingTiles (tiles) {
+  for (var i = 0; i < tiles.length; i++) {
+    for (var j = 0; j < tiles[i].length; j++) {
+      var total = 0;
+      j > 0 && tiles[i][j - 1].isMine && total++
+      j < tiles[i].length - 1 && tiles[i][j + 1].isMine && total++
+      i > 0 && tiles[i - 1][j].isMine && total++
+      i < tiles.length - 1 && tiles[i + 1][j].isMine && total++
+      i > 0 && j < tiles[i].length - 1 && tiles[i - 1][j + 1].isMine && total++
+      i > 0 && j > 0 && tiles[i - 1][j - 1].isMine && total++
+      i < tiles.length - 1 && j < tiles[i].length - 1 && tiles[i + 1][j + 1].isMine && total++
+      i < tiles.length - 1 && j > 0 && tiles[i + 1][j - 1].isMine && total++
+      tiles[i][j].surroundingMines = total
+    }
+  }
   return tiles
 }
