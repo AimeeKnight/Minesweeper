@@ -46,52 +46,62 @@ function exposeSurroundingTiles(newTileId, tileRows) {
   for (var i = 0; i < tileRows.length; i++) {
     for (var j = 0; j < tileRows[i].length; j++) {
       if (tileRows[i][j].id === newTileId) {
-        j > 0 && tileRows[i][j - 1].markAsExposed()
 
-        if (j > 0 && tileRows[i][j - 1].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i][j - 1].id, tileRows)
+        if (j > 0) {
+          tileRows[i][j - 1] = updateTile(tileRows[i][j - 1])
+          if (tileRows[i][j - 1].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i][j - 1].id, tileRows)
+          }
         }
 
-        j < tileRows[i].length - 1 && tileRows[i][j + 1].markAsExposed()
-
-        if (j < tileRows[i].length - 1 && tileRows[i][j + 1].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i][j + 1], tileRows)
+        if (j < tileRows[i].length - 1) {
+          tileRows[i][j + 1] = updateTile(tileRows[i][j + 1])
+          if (tileRows[i][j + 1].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i][j + 1], tileRows)
+          }
         }
 
-        i > 0 && tileRows[i - 1][j].markAsExposed()
-
-        if (i > 0 && tileRows[i - 1][j].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i - 1][j], tileRows)
+        if (i > 0 ) {
+          tileRows[i - 1][j] = updateTile(tileRows[i - 1][j])
+          if (tileRows[i - 1][j].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i - 1][j], tileRows)
+          }
         }
 
-        i < tileRows.length - 1 && tileRows[i + 1][j].markAsExposed()
-
-        if (i < tileRows.length - 1 && tileRows[i + 1][j].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i + 1][j], tileRows)
+        if (i < tileRows.length - 1) {
+          tileRows[i + 1][j] = updateTile(tileRows[i + 1][j])
+          if (tileRows[i + 1][j].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i + 1][j], tileRows)
+          }
         }
 
-        i > 0 && j < tileRows[i].length - 1 && tileRows[i - 1][j + 1].markAsExposed()
-
-        if (i > 0 && j < tileRows[i].length - 1 && tileRows[i - 1][j + 1].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i - 1][j + 1], tileRows)
+        if (i > 0 && j < tileRows[i].length - 1 ) {
+          tileRows[i - 1][j + 1] = updateTile(tileRows[i - 1][j + 1])
+          if (tileRows[i - 1][j + 1].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i - 1][j + 1], tileRows)
+          }
         }
 
-        i > 0 && j > 0 && tileRows[i - 1][j - 1].markAsExposed()
-
-        if (i > 0 && j > 0 && tileRows[i - 1][j - 1].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i - 1][j - 1], tileRows)
+        if (i > 0 && j > 0 ) {
+          tileRows[i - 1][j - 1] = updateTile(tileRows[i - 1][j - 1])
+          if (tileRows[i - 1][j - 1].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i - 1][j - 1], tileRows)
+          }
         }
 
-        i < tileRows.length - 1 && j < tileRows[i].length - 1 && tileRows[i + 1][j + 1].markAsExposed()
 
-        if (i < tileRows.length - 1 && j < tileRows[i].length - 1 && tileRows[i + 1][j + 1].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i + 1][j + 1], tileRows)
+        if (i < tileRows.length - 1 && j < tileRows[i].length - 1) {
+          tileRows[i + 1][j + 1] = updateTile(tileRows[i + 1][j + 1])
+          if (tileRows[i + 1][j + 1].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i + 1][j + 1], tileRows)
+          }
         }
 
-        i < tileRows.length - 1 && j > 0 && tileRows[i + 1][j - 1].markAsExposed()
-
-        if (i < tileRows.length - 1 && j > 0 && tileRows[i + 1][j - 1].clearSurroundings) {
-          exposeSurroundingTiles(tileRows[i + 1][j - 1], tileRows)
+        if (i < tileRows.length - 1 && j > 0) {
+          tileRows[i + 1][j - 1] = updateTile(tileRows[i + 1][j - 1])
+          if (tileRows[i + 1][j - 1].clearSurroundings) {
+            exposeSurroundingTiles(tileRows[i + 1][j - 1], tileRows)
+          }
         }
 
       }
@@ -99,4 +109,12 @@ function exposeSurroundingTiles(newTileId, tileRows) {
   }
 }
 
+function updateTile(tile) {
+  let newTile = new Tile(tile.id)
+  newTile.markAsExposed()
+  newTile.isMine = tile.isMine
+  newTile.surroundingMines = tile.surroundingMines
+  newTile.clearSurroundings = tile.clearSurroundings
+  return newTile
+}
 
