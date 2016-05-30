@@ -40,6 +40,7 @@ function markSurroundingTiles (tiles) {
       i < tiles.length - 1 && j < tiles[i].length - 1 && tiles[i + 1][j + 1].isMine && total++
       i < tiles.length - 1 && j > 0 && tiles[i + 1][j - 1].isMine && total++
       tiles[i][j].surroundingMines = total
+      total === 0 ? tiles[i][j].clearSurroundings = true : tiles[i][j].clearSurroundings = false
     }
   }
   return tiles

@@ -20,4 +20,15 @@ BoardView.propTypes = {
   tiles: React.PropTypes.array.isRequired
 }
 
+//function logMines(rows) {
+//  let totalMines = 0
+//  rows.forEach((row) => {
+//    row.forEach((tile) => {
+//      tile.isMine === true && totalMines++
+//    })
+//  })
+//}
+
+//logMines(store.getState().tiles)
+
 export default BoardView

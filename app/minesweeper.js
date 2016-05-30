@@ -11,6 +11,7 @@ const MinesweeperView = ({tiles, rows}) => {
         tiles={tiles}
         rows={rows}
       />
+      <input type='radio' value={store.getState().flagModeEnabled}  />Add Flag Mode
     </div>
   )
 }
